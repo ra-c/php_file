@@ -38,7 +38,7 @@ $lista_file = array_diff(scandir($percorso_caricamenti), array('.', '..'));
                 <option value="r">r</option>
                 <option value="r+">r+</option>
                 <option value="w">w</option>
-                <option value="w">w+</option>
+                <option value="w+">w+</option>
                 <option value="a">a</option>
                 <option value="a+">a+</option>
             </select>
