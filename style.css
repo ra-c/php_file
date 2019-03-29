@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+  }
+  
+  body {
+    margin: 0;
+  }
+  
+  .header {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  
+  .column {
+    float: left;
+    width: 25%;
+    padding: 15px;
+  }
+  
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
