@@ -7,6 +7,7 @@ if(!isset($_POST["submit"])){
     exit();
 }
 
+ //Legge il valore nell'array associativo alla chiave 'error' e controlla se il file è stato caricato con successo
 if($_FILES["file_caricato"]["error"] != UPLOAD_ERR_OK){
     $_SESSION['errore_upload'] = "Errore nel caricamento del file da parte del server. [";
 
@@ -48,9 +49,9 @@ if($_FILES["file_caricato"]["error"] != UPLOAD_ERR_OK){
     exit();
 }
 
-$percorso_caricamenti = $_SERVER["DOCUMENT_ROOT"] . DIRECTORY_SEPARATOR . "file_caricati";
-$percorso_file = $percorso_caricamenti . DIRECTORY_SEPARATOR . $_FILES["file_caricato"]["name"];
-$spostamento_avvenuto = move_uploaded_file($_FILES["file_caricato"]["tmp_name"], $percorso_file);
+$percorso_caricamenti = $_SERVER["DOCUMENT_ROOT"] . DIRECTORY_SEPARATOR . "file_caricati"; //Stringa contenente il percorso alla cartella per i file caricati
+$percorso_file = $percorso_caricamenti . DIRECTORY_SEPARATOR . $_FILES["file_caricato"]["name"]; //Stringa contenente il percorso al file caricato
+$spostamento_avvenuto = move_uploaded_file($_FILES["file_caricato"]["tmp_name"], $percorso_file); //Sposta il file dal percorso temporaneo alla directory su definita
 ?>
 
 
@@ -60,8 +61,8 @@ $spostamento_avvenuto = move_uploaded_file($_FILES["file_caricato"]["tmp_name"],
         <meta charset="utf-8">
         <title>Test file PHP</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel = "stylesheet" type = "text/css" href = "header_style.css" />
-        <link rel = "stylesheet" type = "text/css" href = "carica_file.css" />
+        <link rel = "stylesheet" type = "text/css" href = "style/header_style.css" />
+        <link rel = "stylesheet" type = "text/css" href = "style/carica_file.css" />
     </head>
     <body>
         <a href="index.php" id="header_link">
@@ -73,12 +74,14 @@ $spostamento_avvenuto = move_uploaded_file($_FILES["file_caricato"]["tmp_name"],
         <div class="container">
             <h2>File caricato con successo</h2>
             <ul id="attributi_file">
+                <!-- Sono stampati a schermo gli attributi del file dall'array associativo $_FILES -->
                 <li> Nome: <span class="attribute"><?=$_FILES['file_caricato']['name']?></span> </li>
                 <li> Tipo: <span class="attribute"><?=$_FILES['file_caricato']['type']?></span> </li>
                 <li> Dimensioni: <span class="attribute"><?=$_FILES['file_caricato']['size'] ?> byte </span></li>
                 <li> Percorso temporaneo: <span class="attribute"><?=$_FILES['file_caricato']['tmp_name']?></span> </li>
             </ul>
 
+            <!-- Stampa a schermo un messaggio che segnala l'esito dell'operazione di spostamento del file caricato -->
             <?php if ($spostamento_avvenuto): ?>
                 <div>
                     Il file è stato salvato dal server al percorso <span class="attribute"><?=$percorso_file?></span>.
