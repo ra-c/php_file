@@ -60,27 +60,41 @@ $spostamento_avvenuto = move_uploaded_file($_FILES["file_caricato"]["tmp_name"],
         <meta charset="utf-8">
         <title>Test file PHP</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel = "stylesheet" type = "text/css" href = "header_style.css" />
+        <link rel = "stylesheet" type = "text/css" href = "carica_file.css" />
     </head>
     <body>
-        <div>
-            File caricato con successo. (Codice errore: 0) <br>
-            Nome: <?=$_FILES['file_caricato']['name']?> <br>
-            Tipo: <?=$_FILES['file_caricato']['type']?> <br>
-            Dimensioni: <?=$_FILES['file_caricato']['size'] ?> byte <br>
-            Percorso temporaneo: <?=$_FILES['file_caricato']['tmp_name']?> <br>
+        <a href="index.php" id="header_link">
+        <div class="header">
+            <h1>Test File in PHP</h1>
+        </div>
+        </a>
+
+        <div class="container">
+            <h2>File caricato con successo</h2>
+            <ul id="attributi_file">
+                <li> Nome: <span class="attribute"><?=$_FILES['file_caricato']['name']?></span> </li>
+                <li> Tipo: <span class="attribute"><?=$_FILES['file_caricato']['type']?></span> </li>
+                <li> Dimensioni: <span class="attribute"><?=$_FILES['file_caricato']['size'] ?> byte </span></li>
+                <li> Percorso temporaneo: <span class="attribute"><?=$_FILES['file_caricato']['tmp_name']?></span> </li>
+            </ul>
+
+            <?php if ($spostamento_avvenuto): ?>
+                <div>
+                    Il file è stato salvato dal server al percorso <span class="attribute"><?=$percorso_file?></span>.
+                </div>
+                <div id="contenuto_file_frame">
+                    <h3>Contenuto file</h3>
+                    <div id="contenuto">
+                        <?=file_get_contents($percorso_file);?>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div>
+                    Errore durante lo spostamento del file al percorso <?=$percorso_file?> del server.
+                </div>
+            <?php endif; ?>
         </div>
 
-        <?php if ($spostamento_avvenuto): ?>
-            <div>
-                Il file è stato salvato dal server al percorso <?=$percorso_file?>.
-            </div>
-            <div>
-                Contenuto file: <?=file_get_contents($percorso_file);?>
-            </div>
-        <?php else: ?>
-            <div>
-                Errore durante lo spostamento del file al percorso <?=$percorso_file?> del server.
-            </div>
-        <?php endif; ?>
     </body>
 </html>

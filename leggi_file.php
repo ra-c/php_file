@@ -47,13 +47,22 @@ if(isset($_GET['leggi']))
         <meta charset="utf-8">
         <title>Test file PHP</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel = "stylesheet" type = "text/css" href = "header_style.css" />
+        <link rel = "stylesheet" type = "text/css" href = "leggi_file.css" />
     </head>
     <body>
+    <a href="index.php" id="header_link">
+    <div class="header">
+        <h1>Test File in PHP</h1>
+    </div>
+    </a>
         <?php if ($file_letto != false): ?>
-            <h2>Contenuto file</h2>
-            <h3>Percorso: <?=$percorso_caricamenti . DIRECTORY_SEPARATOR . $_GET['nome_file']?> </h3>
-            <h3>Byte da leggere: <?=$_GET['numero_byte']?></h3> <br>
-            <div><?=$file_letto?></div>
+            <div id="file_letto">
+                <h2>Contenuto file</h2>
+                <h3>Percorso: <span class="attribute"><?=$percorso_caricamenti . DIRECTORY_SEPARATOR . $_GET['nome_file']?> </span></h3>
+                <h3>Byte da leggere: <span class="attribute"><?=$_GET['numero_byte']?></span></h3> <br>
+                <div id="contenuto"><?=$file_letto?></div>
+            </div>
         <?php endif; ?>
     </body>
 </html>

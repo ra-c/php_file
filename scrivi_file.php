@@ -5,13 +5,13 @@ if (isset($_GET['scrivi'])) {
     if(empty($_GET['nome_file']) ||
     empty($_GET['modalita']) ||
     empty($_GET['testo']) ) {
-        $_SESSION['messaggio_scrittura'] = "Compilare tutti i campi";
+        $_SESSION['errore_scrittura'] = "Compilare tutti i campi";
         header("location: index.php");
         exit();
     }
 
     if(!preg_match("/^[rwa]\+?$/", $_GET['modalita'])){
-        $_SESSION['messaggio_scrittura'] = "Specificare modalità di apertura corretta";
+        $_SESSION['errore_scrittura'] = "Specificare modalità di apertura corretta";
             header("location: index.php");
             exit();
     }
@@ -23,14 +23,14 @@ if (isset($_GET['scrivi'])) {
     $file = fopen($percorso_caricamenti . DIRECTORY_SEPARATOR . $_GET['nome_file'], $modalita);
 
     if($file==false){
-        $_SESSION['messaggio_scrittura'] = "Errore durante l'apertura del file";
+        $_SESSION['errore_scrittura'] = "Errore durante l'apertura del file";
             header("location: index.php");
             exit();
     }
 
     $byte_scritti= fwrite($file , $_GET['testo']);
     if ($byte_scritti == false){
-        $_SESSION['messaggio_scrittura'] = "fwrite() ha restituito false, si è verificato un errore durante la scrittura o la modalità di apertura scelta non consente la scrittura.";
+        $_SESSION['errore_scrittura'] = "fwrite() ha restituito false, si è verificato un errore durante la scrittura o la modalità di apertura scelta non consente la scrittura.";
         header("location: index.php");
         exit();
     } else {
